@@ -6,8 +6,6 @@
 #include <omp.h>
 // Helper functions for matrix computation. Works with the matrix struct. To paralellise
 
-typedef struct matrix matrix;
-
 void printm(matrix *m){
     // display a matrix
     for (int i=0; i<m->dims[0]; i++){
