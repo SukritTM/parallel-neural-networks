@@ -1,15 +1,12 @@
+#include "matrix.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <omp.h>
-
 // Helper functions for matrix computation. Works with the matrix struct. To paralellise
 
-typedef struct matrix {
-    float **mat;
-    int dims[2];
-} matrix;
-
+typedef struct matrix matrix;
 
 void printm(matrix *m){
     // display a matrix
@@ -214,4 +211,31 @@ matrix *add(matrix *mat1, matrix *mat2){
     }
 
     return rslt;
+}
+
+matrix *matrix2(int dims[2], float vals[][dims[1]]) {
+    matrix *ans =  alloc2(dims);
+    for (int i = 0; i < dims[0]; i++) {
+        for (int j = 0; j < dims[1]; j++) {
+            ans->mat[i][j] = vals[i][j];
+        }
+    }
+    return ans;
+}
+
+void unalloc(matrix *mat) {
+    for (int i = 0; i < mat->dims[0]; i++) {
+        free(mat->mat[i]);
+    }
+    free(mat);
+}
+
+matrix *identity(int n) {
+    matrix *ans =  alloc2((int [2]){n, n});
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            ans->mat[i][j] = (i == j);
+        }
+    }
+    return ans;
 }
