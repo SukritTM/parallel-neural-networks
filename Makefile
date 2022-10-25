@@ -16,5 +16,8 @@ matrix-test:
 
 mlp:
 	gcc -c mlp.c
-	gcc mlp.o matrix.o -o mlp.out
-	./mlp.out
+
+mlp-test:
+	gcc -c mlp-test.c
+	gcc mlp-test.o mlp.o matrix.o -o mlp-test.out
+	./mlp-test.out
