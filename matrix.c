@@ -232,3 +232,30 @@ matrix *add(matrix *mat1, matrix *mat2){
 
     return rslt;
 }
+
+matrix *matrix2(int dims[2], float vals[][dims[1]]) {
+    matrix *ans =  alloc2(dims);
+    for (int i = 0; i < dims[0]; i++) {
+        for (int j = 0; j < dims[1]; j++) {
+            ans->mat[i][j] = vals[i][j];
+        }
+    }
+    return ans;
+}
+
+void unalloc(matrix *mat) {
+    for (int i = 0; i < mat->dims[0]; i++) {
+        free(mat->mat[i]);
+    }
+    free(mat);
+}
+
+matrix *identity(int n) {
+    matrix *ans =  alloc2((int [2]){n, n});
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            ans->mat[i][j] = (i == j);
+        }
+    }
+    return ans;
+}
