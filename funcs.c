@@ -8,6 +8,8 @@ float func_linear(float n) {
 
 matrix *activation_linear(matrix *A) {
     matrix *ans = alloc2(A->dims);
+
+    #pragma omp parallel for collapse(2)
     for (int i = 0; i < A->dims[0]; i++) {
         for (int j = 0; j < A->dims[1]; j++) {
             ans->mat[i][j] = func_linear(A->mat[i][j]);
@@ -22,6 +24,8 @@ float func_relu(float n) {
 
 matrix *activation_relu(matrix *A) {
     matrix *ans = alloc2(A->dims);
+
+    #pragma omp parallel for collapse(2)
     for (int i = 0; i < A->dims[0]; i++) {
         for (int j = 0; j < A->dims[1]; j++) {
             ans->mat[i][j] = func_relu(A->mat[i][j]);
@@ -36,6 +40,8 @@ float func_sigmoid(float n) {
 
 matrix *activation_sigmoid(matrix *A) {
     matrix *ans = alloc2(A->dims);
+
+    #pragma omp parallel for collapse(2)
     for (int i = 0; i < A->dims[0]; i++) {
         for (int j = 0; j < A->dims[1]; j++) {
             ans->mat[i][j] = func_sigmoid(A->mat[i][j]);
@@ -50,6 +56,8 @@ float func_tanh(float n) {
 
 matrix *activation_tanh(matrix *A) {
     matrix *ans = alloc2(A->dims);
+
+    #pragma omp parallel for collapse(2)
     for (int i = 0; i < A->dims[0]; i++) {
         for (int j = 0; j < A->dims[1]; j++) {
             ans->mat[i][j] = func_tanh(A->mat[i][j]);
@@ -64,6 +72,8 @@ float derivative_func_linear(float n) {
 
 matrix *derivative_linear(matrix *A) {
     matrix *ans = alloc2(A->dims);
+
+    #pragma omp parallel for collapse(2)
     for (int i = 0; i < A->dims[0]; i++) {
         for (int j = 0; j < A->dims[1]; j++) {
             ans->mat[i][j] = derivative_func_linear(A->mat[i][j]);
@@ -80,6 +90,8 @@ float derivative_func_relu(float n) {
 
 matrix *derivative_relu(matrix *A) {
     matrix *ans = alloc2(A->dims);
+
+    #pragma omp parallel for collapse(2)
     for (int i = 0; i < A->dims[0]; i++) {
         for (int j = 0; j < A->dims[1]; j++) {
             ans->mat[i][j] = derivative_func_relu(A->mat[i][j]);
@@ -94,6 +106,8 @@ float derivative_func_sigmoid(float n) {
 
 matrix *derivative_sigmoid(matrix *A) {
     matrix *ans = alloc2(A->dims);
+
+    #pragma omp parallel for collapse(2)
     for (int i = 0; i < A->dims[0]; i++) {
         for (int j = 0; j < A->dims[1]; j++) {
             ans->mat[i][j] = derivative_func_sigmoid(A->mat[i][j]);
@@ -108,6 +122,8 @@ float derivative_func_tanh(float n) {
 
 matrix *derivative_tanh(matrix *A) {
     matrix *ans = alloc2(A->dims);
+
+    #pragma omp parallel for collapse(2)
     for (int i = 0; i < A->dims[0]; i++) {
         for (int j = 0; j < A->dims[1]; j++) {
             ans->mat[i][j] = derivative_func_tanh(A->mat[i][j]);
