@@ -60,6 +60,20 @@ int main() {
     unalloc(sigmoid_m2);
     unalloc(sigmoid_m3);
 
+    printf("tanh:\n");
+
+    matrix *tanh_m1 = activation_tanh(m1);
+    matrix *tanh_m2 = activation_tanh(m2);
+    matrix *tanh_m3 = activation_tanh(m3);
+
+    printm(tanh_m1);
+    printm(tanh_m2);
+    printm(tanh_m3);
+
+    unalloc(tanh_m1);
+    unalloc(tanh_m2);
+    unalloc(tanh_m3);
+
     unalloc(m1);
     unalloc(m2);
     unalloc(m3);

@@ -44,6 +44,20 @@ matrix *activation_sigmoid(matrix *A) {
     return ans;
 }
 
+float func_tanh(float n) {
+    return (expf(n) - expf(-n)) / (expf(n) + expf(-n));
+}
+
+matrix *activation_tanh(matrix *A) {
+    matrix *ans = alloc2(A->dims);
+    for (int i = 0; i < A->dims[0]; i++) {
+        for (int j = 0; j < A->dims[1]; j++) {
+            ans->mat[i][j] = func_tanh(A->mat[i][j]);
+        }
+    }
+    return ans;
+}
+
 float derivative_func_linear(float n) {}
 
 matrix *derivative_linear(matrix *A) {}
@@ -55,3 +69,7 @@ matrix *derivative_relu(matrix *A) {}
 float derivative_func_sigmoid(float n) {}
 
 matrix *derivative_sigmoid(matrix *A) {}
+
+float derivative_func_tanh(float n) {}
+
+matrix *derivative_tanh(matrix *A) {}
