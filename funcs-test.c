@@ -74,6 +74,62 @@ int main() {
     unalloc(tanh_m2);
     unalloc(tanh_m3);
 
+    printf("derivative_linear:\n");
+
+    matrix *derivative_linear_m1 = derivative_linear(m1);
+    matrix *derivative_linear_m2 = derivative_linear(m2);
+    matrix *derivative_linear_m3 = derivative_linear(m3);
+
+    printm(derivative_linear_m1);
+    printm(derivative_linear_m2);
+    printm(derivative_linear_m3);
+
+    unalloc(derivative_linear_m1);
+    unalloc(derivative_linear_m2);
+    unalloc(derivative_linear_m3);
+
+    printf("derivative_relu:\n");
+
+    matrix *derivative_relu_m1 = derivative_relu(m1);
+    matrix *derivative_relu_m2 = derivative_relu(m2);
+    matrix *derivative_relu_m3 = derivative_relu(m3);
+
+    printm(derivative_relu_m1);
+    printm(derivative_relu_m2);
+    printm(derivative_relu_m3);
+
+    unalloc(derivative_relu_m1);
+    unalloc(derivative_relu_m2);
+    unalloc(derivative_relu_m3);
+
+    printf("derivative_sigmoid:\n");
+
+    matrix *derivative_sigmoid_m1 = derivative_sigmoid(m1);
+    matrix *derivative_sigmoid_m2 = derivative_sigmoid(m2);
+    matrix *derivative_sigmoid_m3 = derivative_sigmoid(m3);
+
+    printm(derivative_sigmoid_m1);
+    printm(derivative_sigmoid_m2);
+    printm(derivative_sigmoid_m3);
+
+    unalloc(derivative_sigmoid_m1);
+    unalloc(derivative_sigmoid_m2);
+    unalloc(derivative_sigmoid_m3);
+
+    printf("derivative_tanh:\n");
+
+    matrix *derivative_tanh_m1 = derivative_tanh(m1);
+    matrix *derivative_tanh_m2 = derivative_tanh(m2);
+    matrix *derivative_tanh_m3 = derivative_tanh(m3);
+
+    printm(derivative_tanh_m1);
+    printm(derivative_tanh_m2);
+    printm(derivative_tanh_m3);
+
+    unalloc(derivative_tanh_m1);
+    unalloc(derivative_tanh_m2);
+    unalloc(derivative_tanh_m3);
+
     unalloc(m1);
     unalloc(m2);
     unalloc(m3);
