@@ -22,9 +22,15 @@ int main() {
     printm(m3);
     printm(m4);
 
+    matrix *m4T = transpose(m4);
+    printm(m4T);
+
     unalloc(m1);
     unalloc(m2);
     unalloc(i3);
+    unalloc(m3);
+    unalloc(m4);
+    unalloc(m4T);
 
     return 0;
 }
