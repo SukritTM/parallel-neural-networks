@@ -235,6 +235,8 @@ matrix *add(matrix *mat1, matrix *mat2){
 
 matrix *matrix2(int dims[2], float vals[][dims[1]]) {
     matrix *ans =  alloc2(dims);
+
+    #pragma omp parallel for collapse(2)
     for (int i = 0; i < dims[0]; i++) {
         for (int j = 0; j < dims[1]; j++) {
             ans->mat[i][j] = vals[i][j];
@@ -244,6 +246,7 @@ matrix *matrix2(int dims[2], float vals[][dims[1]]) {
 }
 
 void unalloc(matrix *mat) {
+    #pragma omp parallel for
     for (int i = 0; i < mat->dims[0]; i++) {
         free(mat->mat[i]);
     }
@@ -252,6 +255,8 @@ void unalloc(matrix *mat) {
 
 matrix *identity(int n) {
     matrix *ans =  alloc2((int [2]){n, n});
+
+    #pragma omp parallel for collapse(2)
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             ans->mat[i][j] = (i == j);
