@@ -34,4 +34,6 @@ matrix *identity(int n);
 
 matrix *transpose(matrix *mat);
 
+matrix *broadadd(matrix *mat, float n);
+
 #endif

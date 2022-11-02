@@ -274,3 +274,14 @@ matrix *transpose(matrix *mat) {
     }
     return ans;
 }
+
+matrix *broadadd(matrix *mat, float n){
+    matrix *ans = alloc2((int[2]){mat->dims[1], mat->dims[0]});
+
+    for (int i = 0; i < mat->dims[0]; i++) {
+        for (int j = 0; j < mat->dims[1]; j++) {
+            ans->mat[i][j] = mat->mat[i][j] + n;
+        }
+    }
+    return ans;
+}
