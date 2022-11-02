@@ -32,4 +32,6 @@ void unalloc(matrix *mat);
 
 matrix *identity(int n);
 
+matrix *transpose(matrix *mat);
+
 #endif
