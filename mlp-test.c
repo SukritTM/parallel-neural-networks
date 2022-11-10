@@ -41,9 +41,9 @@ int main() {
     // printm(X_test);
     // printm(Y_test);
 
-    model *or = make_model(2, 3);
-    printf("model with %d layers and an input size of %d\n", or->num_layers, or->input_dim);
-    model_train(or, 10, 4, X_train, Y_train);
+    // model *or = make_model(2, 3);
+    // printf("model with %d layers and an input size of %d\n", or->num_layers, or->input_dim);
+    // model_train(or, 10, 4, X_train, Y_train);
     // matrix *y = model_predict(or, 4, X_test);
     // model_evaluate(or, 4, X_test, Y_test);
 
@@ -51,6 +51,6 @@ int main() {
     unalloc(Y_train);
     unalloc(X_test);
     unalloc(Y_test);
-    free(or);
+    // free(or);
     return 0;
 }
