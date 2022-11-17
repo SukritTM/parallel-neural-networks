@@ -38,4 +38,7 @@ matrix *transpose(matrix *mat);
 
 matrix *broadadd(matrix *mat, double n);
 
+matrix *read_csv(char *filename);
+
+
 #endif
