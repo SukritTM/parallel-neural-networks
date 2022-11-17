@@ -355,3 +355,28 @@ matrix *read_csv(char *filename) {
         );
     }
 }
+
+matrix **m2ma(matrix *mat) {
+    int row = mat->dims[0];
+    int column = mat->dims[1];
+    matrix **ans = (matrix **)calloc(row, sizeof(matrix *));
+    for (int i = 0; i < row; i++) {
+        ans[i] = alloc2((int[2]){1, column});
+        for (int j = 0; j < column; j++)
+            ans[i]->mat[0][j] = mat->mat[i][j];
+    }
+    return ans;
+}
+
+double *cm2da(matrix *mat) {
+    double *ans = (double *)calloc(mat->dims[0], sizeof(double));
+    for (int i = 0; i < mat->dims[0]; i++)
+        ans[i] = mat->mat[0][i];
+    return ans;
+}
+
+/*
+double m[1][column];
+        for (int j = 0; j < column; j++)
+            m[1][j] = mat->mat[i][j];
+*/

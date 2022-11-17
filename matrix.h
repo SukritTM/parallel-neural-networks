@@ -40,5 +40,8 @@ matrix *broadadd(matrix *mat, double n);
 
 matrix *read_csv(char *filename);
 
+matrix **m2ma(matrix *mat);
+
+double *cm2da(matrix *mat);
 
 #endif
