@@ -17,7 +17,7 @@ perceptron * perceptron_init(
     model->activation_function = activation_function;
     model->derivative_func = derivative_func;
     model->weights = randrange2(
-        (int[]){input_dims, 1},
+        (int[]){1, input_dims},
         (int[]){-1, 1}
     );
     model->bias = rand()/RAND_MAX;
@@ -33,7 +33,7 @@ void perceptron_train(perceptron * model, matrix *X[], double Y[], int sample_si
         for (int i=0; i<sample_size; i++){
             double y_pred = perceptron_predict(model, X[i]);
             double loss = pow((Y[i] - y_pred), 2);
-            double dloss_dypred = 2*(Y[i] - y_pred);
+            double dloss_dypred = -2*(Y[i] - y_pred);
             double dypred_dZ = model->derivative_func(_perceptron_evaluate(model, X[i]))->mat[0][0];
 
             matrix *dZ_dW = X[i];
@@ -43,6 +43,8 @@ void perceptron_train(perceptron * model, matrix *X[], double Y[], int sample_si
 
             double dloss_db = dloss_dZ * dZ_db;
             matrix *dloss_dW = mul(dloss_dZ, dZ_dW);
+
+            // printf("dloss_dypred: %f    dypred_dZ: %f\n", dloss_dypred, dypred_dZ);
             
             mse += loss;
             m_dloss_db += dloss_db;
@@ -51,10 +53,13 @@ void perceptron_train(perceptron * model, matrix *X[], double Y[], int sample_si
         }
         mse /= sample_size;
         m_dloss_db /= sample_size;
-        m_dloss_dW = mul(1/sample_size, m_dloss_dW);
+        m_dloss_dW = mul((double)1/sample_size, m_dloss_dW);
 
         model->bias -= m_dloss_db*model->learning_rate;
-        model->weights = subtract(model->weights, mul(model->learning_rate, m_dloss_dW));
+        // model->weights = subtract(model->weights, mul(model->learning_rate, m_dloss_dW));
+        model->weights = subtract(model->weights, m_dloss_dW);
+
+        // printm(model->weights); printf("\n");
 
         printf("Epoch: %d  --  Loss: %f\n", epoch, mse);
 
