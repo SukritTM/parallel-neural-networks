@@ -24,6 +24,14 @@ perceptron * perceptron_init(
     return model;
 }
 
+matrix *_perceptron_evaluate(perceptron *model, matrix *X){
+    matrix *X_T = transpose(X);
+    matrix *Z_T = matmul(model->weights, X_T);
+    matrix *Z_Tb = broadadd(Z_T, model->bias);
+    // matrix *Y = model->activation_function(Z_Tb);
+    return Z_Tb; 
+}
+
 void perceptron_train(perceptron * model, matrix *X[], double Y[], int sample_size, int num_iter) {
     for (int epoch=0; epoch<num_iter; epoch++){
         double mse = 0;
@@ -75,12 +83,15 @@ double perceptron_predict(perceptron *model, matrix *X){
     return Y->mat[0][0]; 
 }
 
-matrix *_perceptron_evaluate(perceptron *model, matrix *X){
-    matrix *X_T = transpose(X);
-    matrix *Z_T = matmul(model->weights, X_T);
-    matrix *Z_Tb = broadadd(Z_T, model->bias);
-    // matrix *Y = model->activation_function(Z_Tb);
-    return Z_Tb; 
-}
 
-matrix *predict_evaluate(perceptron *model, matrix *X, matrix *Y);
+double predict_evaluate(perceptron *model, matrix *X[], double Y[], int sample_size){
+    double accuracy = 0;
+    int pos = 0;
+    for (int i=0; i<sample_size; i++){
+        double pred = perceptron_predict(model, X[i]);
+        int predi = pred >= 0.5 ? 1 : 0;
+        
+        if(Y[i] == predi) pos++;
+    }
+    return (double)pos/sample_size;
+}

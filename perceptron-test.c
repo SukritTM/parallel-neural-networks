@@ -28,6 +28,7 @@ int main() {
     printf("%f\n", perceptron_predict(p, matrix2((int []){1, 2}, (double[][2]){0, 1})));
     printf("%f\n", perceptron_predict(p, matrix2((int []){1, 2}, (double[][2]){1, 0})));
     printf("%f\n", perceptron_predict(p, matrix2((int []){1, 2}, (double[][2]){1, 1})));
+    printf("Accuracy: %f\n", predict_evaluate(p, X, Y, 4));
 
 
     // double (*test_func)(double) = func_relu;
