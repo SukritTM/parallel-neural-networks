@@ -150,7 +150,7 @@ matrix *alloc2(int dims[2]){
     for (int i=0; i<dims[0]; i++){
         double *row = (double *)malloc(dims[1]*sizeof(double));
 
-        ret[i] = row;
+        ret[i] = row;  
     }
 
     matrix *ret1 = (matrix *)malloc(sizeof(matrix));
