@@ -30,7 +30,6 @@ funcs-test:
 perceptron:
 	gcc -c perceptron.c
 perceptron-test:
-	gcc -c perceptron-test.c
-	gcc -l perceptron-test.o perceptron.o matrix.o funcs.o -o perceptron-test.out
+	gcc perceptron-test.c perceptron.c matrix.c funcs.c -o perceptron-test.out -fopenmp -lm
 	./perceptron-test.out
 

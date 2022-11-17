@@ -1,27 +1,27 @@
 #include "matrix.h"
 
 // functions:
-float func_linear(float n);
+double func_linear(double n);
 matrix *activation_linear(matrix *A);
 
-float func_relu(float n);
+double func_relu(double n);
 matrix *activation_relu(matrix *A);
 
-float func_sigmoid(float n);
+double func_sigmoid(double n);
 matrix *activation_sigmoid(matrix *A);
 
-float func_tanh(float n);
+double func_tanh(double n);
 matrix *activation_tanh(matrix *A);
 
 // derivatives:
-float derivative_func_linear(float n);
+double derivative_func_linear(double n);
 matrix *derivative_linear(matrix *A);
 
-float derivative_func_relu(float n);
+double derivative_func_relu(double n);
 matrix *derivative_relu(matrix *A);
 
-float derivative_func_sigmoid(float n);
+double derivative_func_sigmoid(double n);
 matrix *derivative_sigmoid(matrix *A);
 
-float derivative_func_tanh(float n);
+double derivative_func_tanh(double n);
 matrix *derivative_tanh(matrix *A);

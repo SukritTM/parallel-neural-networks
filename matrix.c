@@ -21,12 +21,12 @@ void printm(matrix *m){
 matrix *random2(int dims[2]){
     // create a 2d matrix on the heap initialised with random values b/w 0 and 1
 
-    float **ret = (float **)malloc(dims[0]*sizeof(float **));
+    double **ret = (double **)malloc(dims[0]*sizeof(double **));
     #pragma omp parallel for 
     for (int i=0; i<dims[0]; i++){
-        float *row = (float *)malloc(dims[1]*sizeof(float));
+        double *row = (double *)malloc(dims[1]*sizeof(double));
         for (int j=0; j<dims[1]; j++){
-            row[j] = (float)rand()/(float)RAND_MAX;
+            row[j] = (double)rand()/(double)RAND_MAX;
         }
 
         ret[i] = row;
@@ -49,13 +49,13 @@ matrix *randrange2(int dims[2], int range[2]){
         exit(1);
     }
 
-    float **ret = (float **)malloc(dims[0]*sizeof(float **));
+    double **ret = (double **)malloc(dims[0]*sizeof(double **));
 
     #pragma omp parallel for
     for (int i=0; i<dims[0]; i++){
-        float *row = (float *)malloc(dims[1]*sizeof(float));
+        double *row = (double *)malloc(dims[1]*sizeof(double));
         for (int j=0; j<dims[1]; j++){
-            row[j] = (float)rand()/(float)RAND_MAX * (range[1] - range[0]) + range[0];
+            row[j] = (double)rand()/(double)RAND_MAX * (range[1] - range[0]) + range[0];
         }
 
         ret[i] = row;
@@ -73,11 +73,11 @@ matrix *randrange2(int dims[2], int range[2]){
 matrix *ones2(int dims[2]){
     // create a 2d matrix on the heap initialised with ones
 
-    float **ret = (float **)malloc(dims[0]*sizeof(float **));
+    double **ret = (double **)malloc(dims[0]*sizeof(double **));
 
     #pragma omp parallel for
     for (int i=0; i<dims[0]; i++){
-        float *row = (float *)malloc(dims[1]*sizeof(float));
+        double *row = (double *)malloc(dims[1]*sizeof(double));
         for (int j=0; j<dims[1]; j++){
             row[j] = 1;
         }
@@ -97,11 +97,11 @@ matrix *ones2(int dims[2]){
 matrix *fill2(int dims[2], int val){
     // create a 2d matrix on the heap initialised with custom
 
-    float **ret = (float **)malloc(dims[0]*sizeof(float **));
+    double **ret = (double **)malloc(dims[0]*sizeof(double **));
 
     #pragma omp parallel for
     for (int i=0; i<dims[0]; i++){
-        float *row = (float *)malloc(dims[1]*sizeof(float));
+        double *row = (double *)malloc(dims[1]*sizeof(double));
         for (int j=0; j<dims[1]; j++){
             row[j] = val;
         }
@@ -122,11 +122,11 @@ matrix *fill2(int dims[2], int val){
 matrix *zeros2(int dims[2]){
     // create a 2d matrix on the heap initialised with zeros
 
-    float **ret = (float **)malloc(dims[0]*sizeof(float **));
+    double **ret = (double **)malloc(dims[0]*sizeof(double **));
 
     #pragma omp parallel for
     for (int i=0; i<dims[0]; i++){
-        float *row = (float *)calloc(dims[1], sizeof(float));
+        double *row = (double *)calloc(dims[1], sizeof(double));
 
         ret[i] = row;
     }
@@ -143,11 +143,11 @@ matrix *zeros2(int dims[2]){
 matrix *alloc2(int dims[2]){
     // create an uninitialised 2d matrix on the heap
 
-    float **ret = (float **)malloc(dims[0]*sizeof(float **));
+    double **ret = (double **)malloc(dims[0]*sizeof(double **));
 
     #pragma omp parallel for
     for (int i=0; i<dims[0]; i++){
-        float *row = (float *)malloc(dims[1]*sizeof(float));
+        double *row = (double *)malloc(dims[1]*sizeof(double));
 
         ret[i] = row;
     }
@@ -189,10 +189,10 @@ matrix *matmul(matrix *mat1, matrix *mat2){
     return rslt;
 }
 
-matrix *mul(int n, matrix *mat1){
+matrix *mul(double n, matrix *mat1){
     // Scalar multiplication
 
-    float **mat = mat1->mat;
+    double **mat = mat1->mat;
     int *dims = mat1->dims;
 
     matrix *rslt = alloc2(dims);
@@ -233,7 +233,33 @@ matrix *add(matrix *mat1, matrix *mat2){
     return rslt;
 }
 
-matrix *matrix2(int dims[2], float vals[][dims[1]]) {
+matrix *subtract(matrix *mat1, matrix *mat2){
+    // Matrix addition
+
+    int R1 = mat1->dims[0], C1 = mat1->dims[1];
+    int R2 = mat2->dims[0], C2 = mat2->dims[1];
+
+
+    if(R1 != R2 || C1 != C2){
+        printf("Error: incompatible dimensions for add ({%d %d} and {%d %d})\n\n", R1, C1, R2, C2);
+        exit(1);
+    }
+
+    int *dims = mat1->dims;
+
+    matrix *rslt = alloc2(dims);
+
+    #pragma omp parallel for collapse(2)
+    for (int i=0; i<dims[0]; i++){
+        for (int j=0; j<dims[1]; j++){
+            rslt->mat[i][j] = mat1->mat[i][j] - mat2->mat[i][j];
+        }
+    }
+
+    return rslt;
+}
+
+matrix *matrix2(int dims[2], double vals[][dims[1]]) {
     matrix *ans =  alloc2(dims);
 
     #pragma omp parallel for collapse(2)
@@ -275,7 +301,7 @@ matrix *transpose(matrix *mat) {
     return ans;
 }
 
-matrix *broadadd(matrix *mat, float n){
+matrix *broadadd(matrix *mat, double n){
     matrix *ans = alloc2((int[2]){mat->dims[1], mat->dims[0]});
 
     for (int i = 0; i < mat->dims[0]; i++) {
