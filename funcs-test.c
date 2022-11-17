@@ -6,7 +6,7 @@ int main() {
     printf("matrices:\n");
 
     matrix *m1 = random2((int[]){3, 3});
-    float nm2[3][3] = {
+    double nm2[3][3] = {
         {11, 2, -3},
         {3, -2, 1},
         {0, 5, -1}

@@ -22,12 +22,12 @@ void printm(matrix *m){
 matrix *random2(int dims[2]){
     // create a 2d matrix on the heap initialised with random values b/w 0 and 1
 
-    float **ret = (float **)malloc(dims[0]*sizeof(float **));
+    double **ret = (double **)malloc(dims[0]*sizeof(double **));
     #pragma omp parallel for 
     for (int i=0; i<dims[0]; i++){
-        float *row = (float *)malloc(dims[1]*sizeof(float));
+        double *row = (double *)malloc(dims[1]*sizeof(double));
         for (int j=0; j<dims[1]; j++){
-            row[j] = (float)rand()/(float)RAND_MAX;
+            row[j] = (double)rand()/(double)RAND_MAX;
         }
 
         ret[i] = row;
@@ -50,13 +50,13 @@ matrix *randrange2(int dims[2], int range[2]){
         exit(1);
     }
 
-    float **ret = (float **)malloc(dims[0]*sizeof(float **));
+    double **ret = (double **)malloc(dims[0]*sizeof(double **));
 
     #pragma omp parallel for
     for (int i=0; i<dims[0]; i++){
-        float *row = (float *)malloc(dims[1]*sizeof(float));
+        double *row = (double *)malloc(dims[1]*sizeof(double));
         for (int j=0; j<dims[1]; j++){
-            row[j] = (float)rand()/(float)RAND_MAX * (range[1] - range[0]) + range[0];
+            row[j] = (double)rand()/(double)RAND_MAX * (range[1] - range[0]) + range[0];
         }
 
         ret[i] = row;
@@ -74,11 +74,11 @@ matrix *randrange2(int dims[2], int range[2]){
 matrix *ones2(int dims[2]){
     // create a 2d matrix on the heap initialised with ones
 
-    float **ret = (float **)malloc(dims[0]*sizeof(float **));
+    double **ret = (double **)malloc(dims[0]*sizeof(double **));
 
     #pragma omp parallel for
     for (int i=0; i<dims[0]; i++){
-        float *row = (float *)malloc(dims[1]*sizeof(float));
+        double *row = (double *)malloc(dims[1]*sizeof(double));
         for (int j=0; j<dims[1]; j++){
             row[j] = 1;
         }
@@ -98,11 +98,11 @@ matrix *ones2(int dims[2]){
 matrix *fill2(int dims[2], int val){
     // create a 2d matrix on the heap initialised with custom
 
-    float **ret = (float **)malloc(dims[0]*sizeof(float **));
+    double **ret = (double **)malloc(dims[0]*sizeof(double **));
 
     #pragma omp parallel for
     for (int i=0; i<dims[0]; i++){
-        float *row = (float *)malloc(dims[1]*sizeof(float));
+        double *row = (double *)malloc(dims[1]*sizeof(double));
         for (int j=0; j<dims[1]; j++){
             row[j] = val;
         }
@@ -123,11 +123,11 @@ matrix *fill2(int dims[2], int val){
 matrix *zeros2(int dims[2]){
     // create a 2d matrix on the heap initialised with zeros
 
-    float **ret = (float **)malloc(dims[0]*sizeof(float **));
+    double **ret = (double **)malloc(dims[0]*sizeof(double **));
 
     #pragma omp parallel for
     for (int i=0; i<dims[0]; i++){
-        float *row = (float *)calloc(dims[1], sizeof(float));
+        double *row = (double *)calloc(dims[1], sizeof(double));
 
         ret[i] = row;
     }
@@ -144,11 +144,11 @@ matrix *zeros2(int dims[2]){
 matrix *alloc2(int dims[2]){
     // create an uninitialised 2d matrix on the heap
 
-    float **ret = (float **)malloc(dims[0]*sizeof(float **));
+    double **ret = (double **)malloc(dims[0]*sizeof(double **));
 
     #pragma omp parallel for
     for (int i=0; i<dims[0]; i++){
-        float *row = (float *)malloc(dims[1]*sizeof(float));
+        double *row = (double *)malloc(dims[1]*sizeof(double));
 
         ret[i] = row;
     }
@@ -193,7 +193,7 @@ matrix *matmul(matrix *mat1, matrix *mat2){
 matrix *mul(int n, matrix *mat1){
     // Scalar multiplication
 
-    float **mat = mat1->mat;
+    double **mat = mat1->mat;
     int *dims = mat1->dims;
 
     matrix *rslt = alloc2(dims);
@@ -234,7 +234,7 @@ matrix *add(matrix *mat1, matrix *mat2){
     return rslt;
 }
 
-matrix *matrix2(int dims[2], float vals[][dims[1]]) {
+matrix *matrix2(int dims[2], double vals[][dims[1]]) {
     matrix *ans =  alloc2(dims);
     for (int i = 0; i < dims[0]; i++) {
         for (int j = 0; j < dims[1]; j++) {
@@ -283,14 +283,14 @@ matrix *read_csv(char *filename) {
         printf("can't open file");
         return zeros2((int[2]){0, 0});
     } else {
-        float vals[MAX_ROWS][MAX_COLS];
+        double vals[MAX_ROWS][MAX_COLS];
         char buffer[MAX_CSV_BYTES];
         int row = 0;
         int column = 0;
         while (fgets(buffer, MAX_CSV_BYTES, fptr)) {
             column = 0;
             char *value = strtok(buffer, ",");
-            float num;
+            double num;
             while (value) {
                 num = atof(value);
                 vals[row][column] = num;
@@ -300,7 +300,7 @@ matrix *read_csv(char *filename) {
             row++;
         }
         fclose(fptr);
-        float vals2[row][column];
+        double vals2[row][column];
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < column; j++) {
                 vals2[i][j] = vals[i][j];

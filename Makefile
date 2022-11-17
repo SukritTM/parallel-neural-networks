@@ -1,5 +1,6 @@
 all:
 	gcc -c matrix.c -fopenmp
+	gcc -c perceptron.c -fopenmp
 	gcc -c mlp.c -fopenmp
 	gcc -c funcs.c -lm -fopenmp
 
@@ -29,6 +30,7 @@ funcs-test:
 
 perceptron:
 	gcc -c perceptron.c
+
 perceptron-test:
 	gcc -c perceptron-test.c
 	gcc -l perceptron-test.o perceptron.o matrix.o funcs.o -o perceptron-test.out
