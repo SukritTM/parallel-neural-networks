@@ -3,7 +3,7 @@
 
 typedef struct perceptron {
     matrix *weights;
-    int bias;
+    double bias;
     matrix *(*activation_function)(matrix *);
     matrix *(*derivative_func)(matrix *);
     int learning_rate;

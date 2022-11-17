@@ -6,7 +6,7 @@
 
 int main() {
     srand(1010);
-    perceptron *p = perceptron_init(activation_sigmoid, derivative_sigmoid, 0.5, 2);
+    perceptron *p = perceptron_init(activation_sigmoid, derivative_sigmoid, 2, 2);
     printm(p->weights);
     // matrix *inp = random2((int[]){3, 1});
     // printm(inp);

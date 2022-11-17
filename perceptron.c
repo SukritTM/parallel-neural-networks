@@ -56,10 +56,11 @@ void perceptron_train(perceptron * model, matrix *X[], double Y[], int sample_si
         m_dloss_dW = mul((double)1/sample_size, m_dloss_dW);
 
         model->bias -= m_dloss_db*model->learning_rate;
-        // model->weights = subtract(model->weights, mul(model->learning_rate, m_dloss_dW));
-        model->weights = subtract(model->weights, m_dloss_dW);
+        model->weights = subtract(model->weights, mul(model->learning_rate, m_dloss_dW));
+        // model->weights = subtract(model->weights, m_dloss_dW);
 
-        // printm(model->weights); printf("\n");
+        // printm(model->weights); 
+        // printf("%f", model->bias); printf("\n");
 
         printf("Epoch: %d  --  Loss: %f\n", epoch, mse);
 
