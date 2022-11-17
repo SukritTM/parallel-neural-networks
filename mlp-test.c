@@ -4,7 +4,7 @@
 #include "mlp.h"
 
 int main() {
-    float xtrnar[4][2] = {
+    double xtrnar[4][2] = {
         {0, 0},
         {0, 1},
         {1, 0},
@@ -12,7 +12,7 @@ int main() {
     };
     matrix *X_train = matrix2((int[]){4, 2}, xtrnar);
 
-    float ytrnar[4][1] = {
+    double ytrnar[4][1] = {
         {0},
         {1},
         {1},
@@ -20,7 +20,7 @@ int main() {
     };
     matrix *Y_train = matrix2((int[]){4, 1}, ytrnar);
 
-    float xtstar[4][2] = {
+    double xtstar[4][2] = {
         {0, 0},
         {0, 1},
         {1, 0},
@@ -28,7 +28,7 @@ int main() {
     };
     matrix *X_test = matrix2((int[]){4, 2}, xtstar);
 
-    float ytstar[4][1] = {
+    double ytstar[4][1] = {
         {0},
         {1},
         {1},

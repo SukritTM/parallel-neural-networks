@@ -1,9 +1,10 @@
-#include "matrix.h"
-
+#include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 #include <omp.h>
+
+#include "matrix.h"
 // Helper functions for matrix computation. Works with the matrix struct.
 
 void printm(matrix *m){
@@ -301,7 +302,7 @@ matrix *transpose(matrix *mat) {
     return ans;
 }
 
-matrix *broadadd(matrix *mat, double n){
+matrix *broadadd(matrix *mat, double n) {
     matrix *ans = alloc2((int[2]){mat->dims[1], mat->dims[0]});
 
     for (int i = 0; i < mat->dims[0]; i++) {
@@ -310,4 +311,47 @@ matrix *broadadd(matrix *mat, double n){
         }
     }
     return ans;
+}
+
+#define MAX_CSV_BYTES 1000*1000
+#define MAX_ROWS 100
+#define MAX_COLS 100
+
+matrix *read_csv(char *filename) {
+    FILE *fptr = fopen(filename, "r");
+    int dims[2] = {0, 0};
+
+    if (!fptr) {
+        printf("can't open file");
+        return zeros2((int[2]){0, 0});
+    } else {
+        double vals[MAX_ROWS][MAX_COLS];
+        char buffer[MAX_CSV_BYTES];
+        int row = 0;
+        int column = 0;
+        while (fgets(buffer, MAX_CSV_BYTES, fptr)) {
+            column = 0;
+            char *value = strtok(buffer, ",");
+            double num;
+            while (value) {
+                num = atof(value);
+                vals[row][column] = num;
+                value = strtok(NULL, ",");
+                column++;
+            }
+            row++;
+        }
+        fclose(fptr);
+        double vals2[row][column];
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                vals2[i][j] = vals[i][j];
+            }
+        }
+
+        return matrix2(
+            (int[2]){row, column},
+            vals2
+        );
+    }
 }
