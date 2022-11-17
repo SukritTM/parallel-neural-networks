@@ -21,6 +21,6 @@ void perceptron_train(perceptron * model, matrix *X[], double Y[], int sample_si
 
 double perceptron_predict(perceptron *model, matrix *X);
 
-matrix *_perceptron_evaluate(perceptron *model, matrix *X);
-
 void perceptron_unalloc(perceptron *model);
+
+double predict_evaluate(perceptron *model, matrix *X[], double Y[], int sample_size);
