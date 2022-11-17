@@ -190,7 +190,7 @@ matrix *matmul(matrix *mat1, matrix *mat2){
     return rslt;
 }
 
-matrix *mul(int n, matrix *mat1){
+matrix *mul(double n, matrix *mat1){
     // Scalar multiplication
 
     double **mat = mat1->mat;
@@ -234,8 +234,36 @@ matrix *add(matrix *mat1, matrix *mat2){
     return rslt;
 }
 
+matrix *subtract(matrix *mat1, matrix *mat2){
+    // Matrix addition
+
+    int R1 = mat1->dims[0], C1 = mat1->dims[1];
+    int R2 = mat2->dims[0], C2 = mat2->dims[1];
+
+
+    if(R1 != R2 || C1 != C2){
+        printf("Error: incompatible dimensions for add ({%d %d} and {%d %d})\n\n", R1, C1, R2, C2);
+        exit(1);
+    }
+
+    int *dims = mat1->dims;
+
+    matrix *rslt = alloc2(dims);
+
+    #pragma omp parallel for collapse(2)
+    for (int i=0; i<dims[0]; i++){
+        for (int j=0; j<dims[1]; j++){
+            rslt->mat[i][j] = mat1->mat[i][j] - mat2->mat[i][j];
+        }
+    }
+
+    return rslt;
+}
+
 matrix *matrix2(int dims[2], double vals[][dims[1]]) {
     matrix *ans =  alloc2(dims);
+
+    #pragma omp parallel for collapse(2)
     for (int i = 0; i < dims[0]; i++) {
         for (int j = 0; j < dims[1]; j++) {
             ans->mat[i][j] = vals[i][j];
@@ -245,6 +273,7 @@ matrix *matrix2(int dims[2], double vals[][dims[1]]) {
 }
 
 void unalloc(matrix *mat) {
+    #pragma omp parallel for
     for (int i = 0; i < mat->dims[0]; i++) {
         free(mat->mat[i]);
     }
@@ -253,6 +282,8 @@ void unalloc(matrix *mat) {
 
 matrix *identity(int n) {
     matrix *ans =  alloc2((int [2]){n, n});
+
+    #pragma omp parallel for collapse(2)
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {
             ans->mat[i][j] = (i == j);
@@ -266,6 +297,17 @@ matrix *transpose(matrix *mat) {
     for (int i = 0; i < mat->dims[0]; i++) {
         for (int j = 0; j < mat->dims[1]; j++) {
             ans->mat[j][i] = mat->mat[i][j];
+        }
+    }
+    return ans;
+}
+
+matrix *broadadd(matrix *mat, double n) {
+    matrix *ans = alloc2((int[2]){mat->dims[1], mat->dims[0]});
+
+    for (int i = 0; i < mat->dims[0]; i++) {
+        for (int j = 0; j < mat->dims[1]; j++) {
+            ans->mat[i][j] = mat->mat[i][j] + n;
         }
     }
     return ans;

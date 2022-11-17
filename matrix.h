@@ -22,9 +22,11 @@ matrix *alloc2(int dims[2]);
 
 matrix *matmul(matrix *mat1, matrix *mat2);
 
-matrix *mul(int n, matrix *mat1);
+matrix *mul(double n, matrix *mat1);
 
 matrix *add(matrix *mat1, matrix *mat2);
+
+matrix *subtract(matrix *mat1, matrix *mat2);
 
 matrix *matrix2(int dims[2], double vals[][dims[1]]);
 
@@ -34,6 +36,9 @@ matrix *identity(int n);
 
 matrix *transpose(matrix *mat);
 
+matrix *broadadd(matrix *mat, double n);
+
 matrix *read_csv(char *filename);
+
 
 #endif
