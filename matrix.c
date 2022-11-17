@@ -322,7 +322,7 @@ matrix *read_csv(char *filename) {
     int dims[2] = {0, 0};
 
     if (!fptr) {
-        printf("can't open file");
+        printf("can't open file\n");
         return zeros2((int[2]){0, 0});
     } else {
         double vals[MAX_ROWS][MAX_COLS];
