@@ -34,3 +34,7 @@ perceptron-test:
 	gcc -l perceptron-test.o perceptron.o matrix.o funcs.o -o perceptron-test.out
 	./perceptron-test.out
 
+csv-test:
+	gcc -c csv-test.c
+	gcc matrix.o csv-test.o -o csv-test.out -fopenmp
+	./csv-test.out

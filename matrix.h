@@ -34,4 +34,6 @@ matrix *identity(int n);
 
 matrix *transpose(matrix *mat);
 
+matrix *read_csv(char *filename);
+
 #endif
