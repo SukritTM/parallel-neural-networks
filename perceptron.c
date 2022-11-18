@@ -9,7 +9,7 @@
 perceptron * perceptron_init(
     matrix *(*activation_function)(matrix *),
     matrix *(*derivative_func)(matrix *),
-    int learning_rate,
+    double learning_rate,
     int input_dims
 ) {
     perceptron *model = (perceptron *)malloc(sizeof(perceptron));
@@ -18,7 +18,7 @@ perceptron * perceptron_init(
     model->derivative_func = derivative_func;
     model->weights = randrange2(
         (int[]){1, input_dims},
-        (int[]){-1, 1}
+        (int[]){-10, 10}
     );
     model->bias = rand()/RAND_MAX;
     return model;
@@ -70,7 +70,7 @@ void perceptron_train(perceptron * model, matrix *X[], double Y[], int sample_si
         // printm(model->weights); 
         // printf("%f", model->bias); printf("\n");
 
-        printf("Epoch: %d  --  Loss: %f\n", epoch, mse);
+        // printf("Epoch: %d  --  Loss: %f\n", epoch, mse);
 
     }
 }
@@ -86,10 +86,14 @@ double perceptron_predict(perceptron *model, matrix *X){
 
 double predict_evaluate(perceptron *model, matrix *X[], double Y[], int sample_size){
     double accuracy = 0;
-    int pos = 0;
+    int pos = 0, predi;
     for (int i=0; i<sample_size; i++){
         double pred = perceptron_predict(model, X[i]);
-        int predi = pred >= 0.5 ? 1 : 0;
+        double test = pred - Y[i];
+        if (test < 0) test = -test;
+        if (pred - Y[i] < 0.5){
+            pos++;
+        }
         
         if(Y[i] == predi) pos++;
     }

@@ -8,8 +8,7 @@ matrix:
 	gcc -c matrix.c -fopenmp
 
 matrix-test:
-	gcc -c matrix-test.c
-	gcc matrix-test.o matrix.o -o matrix-test.out -fopenmp
+	gcc matrix-test.c matrix.c -o matrix-test.out -fopenmp
 	./matrix-test.out
 
 mlp:
@@ -33,7 +32,8 @@ perceptron:
 
 perceptron-test:
 	gcc perceptron-test.c perceptron.c matrix.c funcs.c -o perceptron-test.out -fopenmp -lm
-	./perceptron-test.out
+	./perceptron-test.out 1
+	./perceptron-test.out 4
 
 csv-test:
 	gcc -c csv-test.c
