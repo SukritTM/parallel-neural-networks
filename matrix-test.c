@@ -32,7 +32,7 @@ int main() {
     // unalloc(m4);
     // unalloc(m4T);
 
-    matrix *ans = broadadd(m2, 2);
+    matrix *ans = mul((double)2, m2);
     printm(m2);
     printm(ans);
 

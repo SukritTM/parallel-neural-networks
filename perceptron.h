@@ -6,14 +6,14 @@ typedef struct perceptron {
     double bias;
     matrix *(*activation_function)(matrix *);
     matrix *(*derivative_func)(matrix *);
-    int learning_rate;
+    double learning_rate;
     int input_size;
 } perceptron;
 
 perceptron *perceptron_init(
     matrix *(*activation_function)(matrix *),
     matrix *(*derivative_func)(matrix *),
-    int learning_rate,
+    double learning_rate,
     int input_dims
 );
 
