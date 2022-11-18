@@ -1,3 +1,4 @@
+#include <stdbool.h>
 #include "matrix.h"
 #include "funcs.h"
 
@@ -17,7 +18,7 @@ perceptron *perceptron_init(
     int input_dims
 );
 
-void perceptron_train(perceptron * model, matrix *X[], double Y[], int sample_size, int num_iter);
+void perceptron_train(perceptron * model, matrix *X[], double Y[], int sample_size, int num_iter, bool show_output);
 
 double perceptron_predict(perceptron *model, matrix *X);
 

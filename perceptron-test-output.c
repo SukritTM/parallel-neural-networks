@@ -7,7 +7,6 @@
 
 int main(int argc, char **argv) {
     int num_threads = atoi(argv[1]);
-    bool show = (atoi(argv[2]) == 1);
     omp_set_num_threads(num_threads);
     // perceptron *p = perceptron_init(activation_sigmoid, derivative_sigmoid, 2, 2);
     // printm(p->weights);
@@ -55,8 +54,7 @@ int main(int argc, char **argv) {
         X_train,
         y_train,
         num_train,
-        500,
-        show
+        800
     );
     double acc = predict_evaluate(iris_model, X_test, y_test, num_test);
     time = omp_get_wtime() - time;

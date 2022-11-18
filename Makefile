@@ -32,8 +32,14 @@ perceptron:
 
 perceptron-test:
 	gcc perceptron-test.c perceptron.c matrix.c funcs.c -o perceptron-test.out -fopenmp -lm
-	./perceptron-test.out 1
-	./perceptron-test.out 4
+	./perceptron-test.out 1 0
+	./perceptron-test.out 2 0
+	./perceptron-test.out 3 0
+	./perceptron-test.out 4 0
+
+perceptron-test-out:
+	gcc perceptron-test.c perceptron.c matrix.c funcs.c -o perceptron-test.out -fopenmp -lm
+	./perceptron-test.out 1 1
 
 csv-test:
 	gcc -c csv-test.c

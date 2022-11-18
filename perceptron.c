@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <stdbool.h>
 
 #include "matrix.h"
 #include "funcs.h"
@@ -32,7 +33,7 @@ matrix *_perceptron_evaluate(perceptron *model, matrix *X){
     return Z_Tb; 
 }
 
-void perceptron_train(perceptron * model, matrix *X[], double Y[], int sample_size, int num_iter) {
+void perceptron_train(perceptron * model, matrix *X[], double Y[], int sample_size, int num_iter, bool show_output) {
     for (int epoch=0; epoch<num_iter; epoch++){
         double mse = 0;
         double m_dloss_db = 0;
@@ -70,7 +71,7 @@ void perceptron_train(perceptron * model, matrix *X[], double Y[], int sample_si
         // printm(model->weights); 
         // printf("%f", model->bias); printf("\n");
 
-        // printf("Epoch: %d  --  Loss: %f\n", epoch, mse);
+        if (show_output) printf("Epoch: %d  --  Loss: %f\n", epoch, mse);
 
     }
 }
